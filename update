@@ -1,6 +1,7 @@
 #!/bin/bash
-echo "Updating Whaticket, please wait."
+echo "Atualizando Whamulti, por favor aguarde."
 
+git reset --hard
 git pull
 cd backend
 npm install
@@ -12,6 +13,19 @@ cd ../frontend
 npm install
 rm -rf build
 npm run build
-pm2 restart all
 
-echo "Update finished. Enjoy!"
+confirmar() {
+    while true; do
+        read -p "$1 (Digite exatamente 'Sim' para continuar): " resposta
+        if [ "$resposta" == "Sim" ]; then
+            break
+        else
+            echo "Reinicie o PM2 do Backend e Frontend e volte"
+        fi
+    done
+}
+
+# Confirmação após finalizar
+confirmar "Reiniciou o PM2 do Backend e Frontend?"
+
+echo "Atualização finalizada. Aproveite!"
